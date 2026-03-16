@@ -40,7 +40,7 @@ public class ReportingLineService {
         while (managerId != null) {
 
             if (visited.contains(managerId)) {
-                System.out.println("Circular hierarchy detected for employee " + emp.getName());
+                System.out.println("Cycle detected in reporting line for employee " + emp.getName());
                 break;
             }
 
@@ -49,16 +49,16 @@ public class ReportingLineService {
             Employee manager = employees.get(managerId);
 
             if (manager == null) {
+                System.out.println("Manager with ID " + managerId + " not found for employee " + emp.getName());
+                break;
+            }
+
+            if (manager.getManagerId() == null) {
+                // stop when CEO is reached
                 break;
             }
 
             count++;
-
-            // stop when CEO is reached
-            if (manager.getManagerId() == null) {
-                break;
-            }
-
             managerId = manager.getManagerId();
         }
 
