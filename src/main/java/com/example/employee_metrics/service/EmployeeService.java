@@ -8,16 +8,17 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-
 public class EmployeeService {
-    @Autowired
-    private CsvFileReader csvFileReader;
+    private final CsvFileReader csvFileReader;
+    private final SalaryAnalyzerService salaryAnalyzerService;
+    private final ReportingLineService reportingLineService;
 
     @Autowired
-    private SalaryAnalyzerService salaryAnalyzerService;
-
-    @Autowired
-    private ReportingLineService reportingLineService;
+    public EmployeeService(CsvFileReader csvFileReader, SalaryAnalyzerService salaryAnalyzerService, ReportingLineService reportingLineService) {
+        this.csvFileReader = csvFileReader;
+        this.salaryAnalyzerService = salaryAnalyzerService;
+        this.reportingLineService = reportingLineService;
+    }
 
     public void analyzeEmployees(String filePath) {
 
